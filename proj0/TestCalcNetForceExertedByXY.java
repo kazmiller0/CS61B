@@ -45,11 +45,11 @@ public class TestCalcNetForceExertedByXY {
     private static void calcNetForceExertedByXY() {
         System.out.println("Checking calcNetForceExertedByXY...");
 
-        Planet p1 = new Planet(1.0, 1.0, 3.0, 4.0, 5.0, "jupiter.gif");
-        Planet p2 = new Planet(2.0, 1.0, 3.0, 4.0, 4e11, "jupiter.gif");
+        Planet p1 = new Planet(1.0, 1.0, 3.0, 4.0, 5.0, "images/jupiter.gif");
+        Planet p2 = new Planet(2.0, 1.0, 3.0, 4.0, 4e11, "images/jupiter.gif");
         
-        Planet p3 = new Planet(4.0, 5.0, 3.0, 4.0, 5.0, "jupiter.gif");
-        Planet p4 = new Planet(3.0, 2.0, 3.0, 4.0, 5.0, "jupiter.gif");
+        Planet p3 = new Planet(4.0, 5.0, 3.0, 4.0, 5.0, "images/jupiter.gif");
+        Planet p4 = new Planet(3.0, 2.0, 3.0, 4.0, 5.0, "images/jupiter.gif");
 
         Planet[] planets = {p2, p3, p4};
 

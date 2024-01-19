@@ -52,7 +52,7 @@ public class TestPlanetConstructor {
                yyVel = 4.0,
                mass = 5.0;
 
-        String imgFileName = "jupiter.gif";
+        String imgFileName = "images/jupiter.gif";
 
         Planet p = new Planet(xxPos, yyPos, xxVel, yyVel, mass, imgFileName);
 
