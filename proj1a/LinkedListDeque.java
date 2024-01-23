@@ -96,6 +96,21 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
+    private T getRecursiveHelp(Node start, int index) {
+        if (index == 0) {
+            return start.item;
+        } else {
+            return getRecursiveHelp(start.next, index - 1);
+        }
+    }
+
+    public T getRecursive(int index) {
+        if (index >= size) {
+            return null;
+        }
+        return getRecursiveHelp(sentinel.next, index);
+    }
+
     public static void main(String[] args) {
         LinkedListDeque<String> L = new LinkedListDeque<>();
         L.addFirst("hello");
