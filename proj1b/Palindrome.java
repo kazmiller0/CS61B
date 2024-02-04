@@ -1,6 +1,6 @@
 public class Palindrome {
     public Deque<Character> wordToDeque(String word) {
-        Deque<Character> d = new LinkedListDeque<>();
+        Deque<Character> d = new LinkedListDeque<Character>();
         for (int i = 0; i < word.length(); i++) {
             d.addLast(word.charAt(i));
         }
@@ -8,16 +8,19 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
-        if (word.length() <= 1 || word == null) {
+        Deque<Character> deque = wordToDeque(word);
+        return isPalindrome(deque);
+    }
+
+    private boolean isPalindrome(Deque<Character> deque) {
+        if (deque.size() == 1 || deque.size() == 0) {
             return true;
         }
-
-        for (int i = 0; i < word.length() / 2; i++) {
-            if (word.charAt(i) != word.charAt(word.length() - i - 1)) {
-                return false;
-            }
+        if (deque.removeFirst() != deque.removeLast()) {
+            return false;
+        } else {
+            return isPalindrome(deque);
         }
-        return true;
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
