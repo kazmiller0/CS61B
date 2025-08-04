@@ -138,8 +138,7 @@ public class Model extends Observable {
      * and the trailing tile does not.
      */
     public boolean tilt(Side side) {
-        boolean changed;
-        changed = false;
+        boolean changed = false;
 
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
@@ -162,30 +161,22 @@ public class Model extends Observable {
         return changed;
     }
 
+    /**
+     * Returns true if any tile moved or merged in column c.
+     */
     public boolean processColumn(int c) {
+        int size = board.size();
         boolean changed = false;
-        boolean[] merged = new boolean[board.size()];
-        for (int r = board.size() - 2; r >= 0; r--) {
+        boolean[] merged = new boolean[size];
+        for (int r = size - 2; r >= 0; r--) {
             Tile t = board.tile(c, r);
+
             if (t == null) {
                 continue;
             }
 
-            int targetRow = r;
-            for (int r0 = r + 1; r0 < board.size(); r0++) {
-                Tile above = board.tile(c, r0);
-                if (above == null) {
-                    targetRow = r0;
-                } else if (t.value() == above.value() && !merged[r0]) {
-                    targetRow = r0;
-                    break;
-                } else {
-                    break;
-                }
-            }
-
+            int targetRow = searchTargetRow(c, r, merged);
             if (targetRow != r) {
-                Tile target = board.tile(c, targetRow);
                 if (board.move(c, targetRow, t)) {
                     merged[targetRow] = true;
                     score += 2 * t.value();
@@ -194,6 +185,27 @@ public class Model extends Observable {
             }
         }
         return changed;
+    }
+
+    /**
+     * Finds the furthest row a tile can move to from (c, r).
+     * Considers both empty tiles and mergeable tiles.
+     */
+    public int searchTargetRow(int c, int r, boolean[] merged) {
+        Tile current = board.tile(c, r);
+        int targetRow = r;
+        for (int r0 = r + 1; r0 < board.size(); r0++) {
+            Tile above = board.tile(c, r0);
+            if (above == null) {
+                targetRow = r0;
+            } else if (current.value() == above.value() && !merged[r0]) {
+                targetRow = r0;
+                break;
+            } else {
+                break;
+            }
+        }
+        return targetRow;
     }
 
     /**
