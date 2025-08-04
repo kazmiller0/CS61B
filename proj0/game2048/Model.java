@@ -1,8 +1,8 @@
 package game2048;
 
+import javax.swing.*;
 import java.util.Formatter;
 import java.util.Observable;
-
 
 /**
  * The state of a game of 2048.
@@ -19,7 +19,7 @@ public class Model extends Observable {
      */
     private int score;
     /**
-     * Maximum score so far.  Updated when game ends.
+     * Maximum score so far. Updated when game ends.
      */
     private int maxScore;
     /**
@@ -27,9 +27,10 @@ public class Model extends Observable {
      */
     private boolean gameOver;
 
-    /* Coordinate System: column C, row R of the board (where row 0,
+    /*
+     * Coordinate System: column C, row R of the board (where row 0,
      * column 0 is the lower-left corner of the board) will correspond
-     * to board.tile(c, r).  Be careful! It works like (x, y) coordinates.
+     * to board.tile(c, r). Be careful! It works like (x, y) coordinates.
      */
 
     /**
@@ -143,10 +144,54 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
+
+        for (int c = 0; c < board.size(); c++) {
+            if (processColumn(c)) {
+                changed = true;
+            }
+        }
 
         checkGameOver();
         if (changed) {
             setChanged();
+        }
+
+        board.setViewingPerspective(Side.NORTH);
+
+        return changed;
+    }
+
+    public boolean processColumn(int c) {
+        boolean changed = false;
+        boolean[] merged = new boolean[board.size()];
+        for (int r = board.size() - 2; r >= 0; r--) {
+            Tile t = board.tile(c, r);
+            if (t == null) {
+                continue;
+            }
+
+            int targetRow = r;
+            for (int r0 = r + 1; r0 < board.size(); r0++) {
+                Tile above = board.tile(c, r0);
+                if (above == null) {
+                    targetRow = r0;
+                } else if (t.value() == above.value() && !merged[r0]) {
+                    targetRow = r0;
+                    break;
+                } else {
+                    break;
+                }
+            }
+
+            if (targetRow != r) {
+                Tile target = board.tile(c, targetRow);
+                if (board.move(c, targetRow, t)) {
+                    merged[targetRow] = true;
+                    score += 2 * t.value();
+                }
+                changed = true;
+            }
         }
         return changed;
     }
@@ -172,9 +217,9 @@ public class Model extends Observable {
      */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        for (int i = 0; i < b.size(); i++) {
-            for (int j = 0; j < b.size(); j++) {
-                if (b.tile(i, j) == null) {
+        for (int c = 0; c < b.size(); c++) {
+            for (int r = 0; r < b.size(); r++) {
+                if (b.tile(c, r) == null) {
                     return true;
                 }
             }
@@ -189,10 +234,10 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        for (int i = 0; i < b.size(); i++) {
-            for (int j = 0; j < b.size(); j++) {
-                Tile tile = b.tile(i, j);
-                if (tile != null && tile.value() == MAX_PIECE) {
+        for (int c = 0; c < b.size(); c++) {
+            for (int r = 0; r < b.size(); r++) {
+                Tile t = b.tile(c, r);
+                if (t != null && t.value() == MAX_PIECE) {
                     return true;
                 }
             }
@@ -211,19 +256,18 @@ public class Model extends Observable {
         if (emptySpaceExists(b)) {
             return true;
         }
-        for (int i = 0; i < b.size(); i++) {
-            for (int j = 0; j < b.size(); j++) {
-                if (i + 1 < b.size() && b.tile(i, j).value() == b.tile(i + 1, j).value()) {
+        for (int c = 0; c < b.size(); c++) {
+            for (int r = 0; r < b.size(); r++) {
+                if (c + 1 < b.size() && b.tile(c, r).value() == b.tile(c + 1, r).value()) {
                     return true;
                 }
-                if (j + 1 < b.size() && b.tile(i, j).value() == b.tile(i, j + 1).value()) {
+                if (r + 1 < b.size() && b.tile(c, r).value() == b.tile(c, r + 1).value()) {
                     return true;
                 }
             }
         }
         return false;
     }
-
 
     @Override
     /** Returns the model as a string, used for debugging. */
