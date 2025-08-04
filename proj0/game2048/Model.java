@@ -229,8 +229,9 @@ public class Model extends Observable {
      */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        for (int c = 0; c < b.size(); c++) {
-            for (int r = 0; r < b.size(); r++) {
+        int size = b.size();
+        for (int c = 0; c < size; c++) {
+            for (int r = 0; r < size; r++) {
                 if (b.tile(c, r) == null) {
                     return true;
                 }
@@ -246,8 +247,9 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        for (int c = 0; c < b.size(); c++) {
-            for (int r = 0; r < b.size(); r++) {
+        int size = b.size();
+        for (int c = 0; c < size; c++) {
+            for (int r = 0; r < size; r++) {
                 Tile t = b.tile(c, r);
                 if (t != null && t.value() == MAX_PIECE) {
                     return true;
@@ -265,15 +267,16 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        int size = b.size();
         if (emptySpaceExists(b)) {
             return true;
         }
-        for (int c = 0; c < b.size(); c++) {
-            for (int r = 0; r < b.size(); r++) {
-                if (c + 1 < b.size() && b.tile(c, r).value() == b.tile(c + 1, r).value()) {
+        for (int c = 0; c < size; c++) {
+            for (int r = 0; r < size; r++) {
+                if (c + 1 < size && b.tile(c, r).value() == b.tile(c + 1, r).value()) {
                     return true;
                 }
-                if (r + 1 < b.size() && b.tile(c, r).value() == b.tile(c, r + 1).value()) {
+                if (r + 1 < size && b.tile(c, r).value() == b.tile(c, r + 1).value()) {
                     return true;
                 }
             }
