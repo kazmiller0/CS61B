@@ -273,11 +273,21 @@ public class Model extends Observable {
         }
         for (int c = 0; c < size; c++) {
             for (int r = 0; r < size; r++) {
-                if (c + 1 < size && b.tile(c, r).value() == b.tile(c + 1, r).value()) {
-                    return true;
+                Tile current = b.tile(c, r);
+                if (current == null) {
+                    continue;
                 }
-                if (r + 1 < size && b.tile(c, r).value() == b.tile(c, r + 1).value()) {
-                    return true;
+                if (c + 1 < size) {
+                    Tile right = b.tile(c + 1, r);
+                    if (right != null && current.value() == right.value()) {
+                        return true;
+                    }
+                }
+                if (r + 1 < size) {
+                    Tile up = b.tile(c, r + 1);
+                    if (up != null && current.value() == up.value()) {
+                        return true;
+                    }
                 }
             }
         }
