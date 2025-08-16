@@ -53,11 +53,9 @@ public class IntListExercises {
      * the first digit of x.
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
-        if (x == 10) {
-            return false;
-        }
+        x = Math.abs(x);
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;

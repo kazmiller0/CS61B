@@ -1,7 +1,8 @@
 package IntList;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class SetToZeroIfMaxFELTest {
 
@@ -24,5 +25,12 @@ public class SetToZeroIfMaxFELTest {
         IntList L = IntList.of(5, 535, 35, 11, 10, 0);
         IntListExercises.setToZeroIfMaxFEL(L);
         assertEquals("0 -> 0 -> 35 -> 0 -> 10 -> 0", L.toString());
+    }
+
+    @Test
+    public void testZeroOutFELMaxes4() {
+        IntList L = IntList.of(1, 22, 15);
+        IntListExercises.setToZeroIfMaxFEL(L);
+        assertEquals("0 -> 0 -> 15", L.toString());
     }
 }
