@@ -112,8 +112,4 @@ public class LinkedListDeque<T> {
 
         return p.item;
     }
-
-//    public Iterator<T> iterator()
-
-//    public boolean equals(Object o)
 }
