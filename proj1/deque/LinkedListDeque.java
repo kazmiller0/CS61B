@@ -100,7 +100,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > size - 1) {
             return null;
         }
 

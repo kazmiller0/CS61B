@@ -2,13 +2,46 @@ package deque;
 
 public class Test {
     public static void main(String[] args) {
-        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        deque.addLast(0);
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
         deque.addLast(1);
         deque.addLast(2);
         deque.addLast(3);
         deque.addLast(4);
-
-        System.out.println(deque.get(3));
+        deque.addLast(5);
+        deque.addLast(6);
+        deque.addLast(7);
+        deque.addLast(8);
+        deque.addLast(9);
+        deque.addLast(10);
+        deque.addLast(11);
+        deque.addLast(12);
+        deque.addLast(13);
+        deque.addLast(14);
+        deque.addLast(15);
+        deque.addLast(16);
+        deque.addLast(17);
+        deque.addLast(18);
+        deque.addLast(19);
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
+        deque.removeLast();
     }
 }
