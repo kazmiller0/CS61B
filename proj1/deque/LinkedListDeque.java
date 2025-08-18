@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private Node sentFront;
     private Node sentLast;
     private int size;
@@ -65,10 +65,8 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
-        Node p = sentFront.next;
-        while (p != null && p != sentLast) {
+        for (Node p = sentFront.next; p != sentLast; p = p.next) {
             System.out.print(p.item + " ");
-            p = p.next;
         }
         System.out.println();
     }
