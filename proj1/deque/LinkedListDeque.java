@@ -1,20 +1,16 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> implements Deque<T> {
-    private Node sentFront;
-    private Node sentLast;
+    private final Node sentFront;
+    private final Node sentLast;
     private int size;
 
     private class Node {
         Node prev;
         Node next;
         T item;
-
-        Node(Node p, Node n, T i) {
-            prev = p;
-            next = n;
-            item = i;
-        }
 
         Node(T i) {
             prev = null;
@@ -38,6 +34,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentLast.prev = sentFront;
     }
 
+    @Override
     public void addFirst(T item) {
         Node first = new Node(item);
         first.prev = sentFront;
@@ -47,6 +44,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T item) {
         Node last = new Node(item);
         last.next = sentLast;
@@ -56,14 +54,17 @@ public class LinkedListDeque<T> implements Deque<T> {
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         for (Node p = sentFront.next; p != sentLast; p = p.next) {
             System.out.print(p.item + " ");
@@ -71,6 +72,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst() {
         if (sentFront.next == sentLast) {
             return null;
@@ -84,6 +86,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return p.item;
     }
 
+    @Override
     public T removeLast() {
         if (sentLast.prev == sentFront) {
             return null;
@@ -97,17 +100,22 @@ public class LinkedListDeque<T> implements Deque<T> {
         return p.item;
     }
 
+    @Override
     public T get(int index) {
         if (index < 0 || index > size - 1) {
             return null;
         }
 
         Node p = sentFront.next;
-
         for (int i = 0; i < index; i++) {
             p = p.next;
         }
 
         return p.item;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }

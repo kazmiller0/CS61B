@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
@@ -9,36 +11,44 @@ public class ArrayDeque<T> implements Deque<T> {
         size = 0;
     }
 
+    public void resize(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        System.arraycopy(items, 0, a, 0, size);
+        items = a;
+    }
+
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
-            T[] newItems = (T[]) new Object[items.length * 2];
-            System.arraycopy(items, 0, newItems, 1, size);
-            items = newItems;
+            resize((int) items.length * 2);
         }
 
+        System.arraycopy(items, 0, items, 1, size);
         items[0] = item;
         size++;
     }
 
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
-            T[] newItems = (T[]) new Object[items.length * 2];
-            System.arraycopy(items, 0, newItems, 0, size);
-            items = newItems;
+            resize(items.length * 2);
         }
 
         items[size] = item;
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(items[i] + " ");
@@ -46,48 +56,52 @@ public class ArrayDeque<T> implements Deque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
         }
 
-        T x = items[0];
-
-        if (items.length >= 8 && (double) size / items.length <= 0.25) {
-            T[] newItems = (T[]) new Object[items.length / 2];
-            System.arraycopy(items, 1, newItems, 0, size - 1);
-        }
+        T x = get(0);
         System.arraycopy(items, 1, items, 0, size - 1);
-
         items[size - 1] = null;
         size--;
+
+        if (items.length >= 16 && (double) size / items.length <= 0.25) {
+            resize((int) items.length / 2);
+        }
 
         return x;
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
         }
 
-        if (items.length >= 8 && (double) size / items.length <= 0.25) {
-            T[] newItems = (T[]) new Object[items.length / 2];
-            System.arraycopy(items, 0, newItems, 0, size - 1);
-        }
-        System.arraycopy(items, 0, items, 0, size - 1);
-
         T x = items[size - 1];
         items[size - 1] = null;
         size--;
+        
+        if (items.length >= 16 && (double) size / items.length <= 0.25) {
+            resize((int) items.length / 2);
+        }
 
         return x;
     }
 
+    @Override
     public T get(int index) {
         if (index < 0 || index > size - 1) {
             return null;
         }
 
         return items[index];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
