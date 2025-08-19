@@ -53,19 +53,17 @@ public class TestBuggyAList {
                 // getLast
                 if (correct.size() > 0 && buggy.size() > 0) {
                     int correctLast = correct.getLast();
-                    int buggyLast = correct.getLast();
-                    buggy.getLast();
+                    int buggyLast = buggy.getLast();
                     assertEquals(correctLast, buggyLast);
                     System.out.println("correct last: " + correctLast + " buggy last: " + buggyLast);
                 }
             } else if (operationNumber == 3) {
                 // removeLast
                 if (correct.size() > 0 && buggy.size() > 0) {
-                    int correctLast = correct.getLast();
-                    int buggyLast = correct.getLast();
-                    buggy.removeLast();
+                    int correctLast = correct.removeLast();
+                    int buggyLast = buggy.removeLast();
                     assertEquals(correctLast, buggyLast);
-                    System.out.println("correct removeLast: " + correct.removeLast() + " buggy removeLast: " + buggyLast);
+                    System.out.println("correct removeLast: " + correctLast + " buggy removeLast: " + buggyLast);
                 }
             }
         }
