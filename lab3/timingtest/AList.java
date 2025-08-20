@@ -42,7 +42,7 @@ public class AList<Item> {
      */
     public void addLast(Item x) {
         if (size == items.length) {
-            resize(items.length * 2);
+            resize(size + 1);
         }
 
         items[size] = x;
