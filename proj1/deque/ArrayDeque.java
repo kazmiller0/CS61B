@@ -20,7 +20,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T item) {
         if (size == items.length) {
-            resize((int) items.length * 2);
+            resize(items.length * 2);
         }
 
         System.arraycopy(items, 0, items, 1, size);
@@ -68,7 +68,7 @@ public class ArrayDeque<T> implements Deque<T> {
         size--;
 
         if (items.length >= 16 && (double) size / items.length <= 0.25) {
-            resize((int) items.length / 2);
+            resize(items.length / 2);
         }
 
         return x;
@@ -83,9 +83,9 @@ public class ArrayDeque<T> implements Deque<T> {
         T x = items[size - 1];
         items[size - 1] = null;
         size--;
-        
+
         if (items.length >= 16 && (double) size / items.length <= 0.25) {
-            resize((int) items.length / 2);
+            resize(items.length / 2);
         }
 
         return x;
@@ -102,6 +102,49 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new ArrayDequeIterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ArrayDeque<T> other = (ArrayDeque<T>) o;
+        if (size != other.size) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (items[i] != other.items[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        int index;
+
+        ArrayDequeIterator() {
+            index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < size - 1;
+        }
+
+        @Override
+        public T next() {
+            index++;
+            return items[index];
+        }
     }
 }

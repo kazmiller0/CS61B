@@ -114,8 +114,53 @@ public class LinkedListDeque<T> implements Deque<T> {
         return p.item;
     }
 
+
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new LinkedListDequeIterator();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
+        if (size != other.size) {
+            return false;
+        }
+
+        Node p1 = sentFront.next;
+        Node p2 = other.sentFront.next;
+        for (int i = 0; i < size; i++) {
+            if (p1.item != p2.item) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private class LinkedListDequeIterator implements Iterator<T> {
+        Node p;
+
+        LinkedListDequeIterator() {
+            p = sentFront;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return p.next != sentLast;
+        }
+
+        @Override
+        public T next() {
+            p = p.next;
+            return p.item;
+        }
     }
 }
