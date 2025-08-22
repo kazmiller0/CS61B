@@ -3,10 +3,6 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T> {
-    private final Node sentFront;
-    private final Node sentLast;
-    private int size;
-
     private class Node {
         Node prev;
         Node next;
@@ -24,6 +20,11 @@ public class LinkedListDeque<T> implements Deque<T> {
             item = null;
         }
     }
+
+    private final Node sentFront;
+    private final Node sentLast;
+    private int size;
+
 
     public LinkedListDeque() {
         size = 0;
@@ -52,11 +53,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentLast.prev.next = last;
         sentLast.prev = last;
         size++;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     @Override
