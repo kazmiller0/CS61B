@@ -130,7 +130,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         return new LinkedListDequeIterator();
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
