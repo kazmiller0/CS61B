@@ -130,6 +130,20 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return p.item;
     }
 
+    public T getRecursive(int index) {
+        if (index < 0 || index > size - 1) {
+            return null;
+        }
+        return getRecursiveHelper(sentFront.next, index);
+    }
+
+    private T getRecursiveHelper(Node node, int index) {
+        if (index == 0) {
+            return null;
+        }
+        return getRecursiveHelper(node.next, index - 1);
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();

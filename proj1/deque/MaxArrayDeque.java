@@ -18,8 +18,8 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
             return null;
         }
 
-        T max = null;
-        for (int i = 0; i < size(); i++) {
+        T max = get(0);
+        for (int i = 1; i < size(); i++) {
             T item = get(i);
             if (c.compare(item, max) > 0) {
                 max = item;

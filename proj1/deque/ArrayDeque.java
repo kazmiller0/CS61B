@@ -31,7 +31,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = 0;
     }
 
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         System.arraycopy(items, 0, a, 0, size);
         items = a;
